@@ -22,13 +22,13 @@ dataset = ["Alice saw Bob.",
 with open('predictive_text_datasets.json') as file_object:
         # store file data in object
         datasets = json.load(file_object)
-        dataset = datasets["childrens_book"]
+        #dataset = datasets["childrens_book"]
         #dataset = datasets["verb_tenses"]
         #dataset = datasets["simple_verb_tenses"]
-        #dataset = datasets["countries_and_languages"]
+        dataset = datasets["countries_and_languages_medium"]
 
 
-num_epochs = 1000
+num_epochs = 500
 hidden_size = 256
 learning_rate = 0.001
 print_interval = 10
@@ -42,6 +42,7 @@ dataset = [tokenizer(sentence) for sentence in dataset]
 
 
 vocabulary = []
+print(dataset)
 for sentence in dataset:
     for word in sentence:
         if word not in vocabulary:
@@ -121,6 +122,7 @@ class MyRNN(nn.Module):
         return probabilities
         
 
+    # function for predicting just the next word
     def predict_next_word(self, input_word:str):
         input_word = word_to_one_hot_tensor(input_word)
         output, hidden_state = self(input_word, self.init_hidden())
@@ -128,11 +130,35 @@ class MyRNN(nn.Module):
         print(self.tensor_guess_to_word(output))
         return output,hidden_state
 
-    def predict_rest_of_sentence(self, input_word:str, show_probabilities = False):
-            out_string = input_word + "... "
-            next_word = input_word
+    # continues to predict until it decides a period is next
+    def predict_rest_of_sentence(self, input_sentence:str, show_probabilities = False):
+            input_type = "word"
+            curr_index = 0
+            if " " in input_sentence:
+                input_type = "sentence"
+                out_string = input_sentence + "... "
+                input_sentence = input_sentence.split(" ")
+
+            
+
+            if input_type == "sentence":
+                next_word = input_sentence[curr_index]
+                
+
+            elif input_type == "word":
+                next_word = input_sentence
+                out_string = next_word + "... "
+
+            
+                
             hidden_state = self.init_hidden()
             while next_word != ".":
+
+                if input_type == "sentence":
+                    if curr_index >= len(input_sentence) -1:
+                        input_type = "word"
+                        input_sentence = next_word
+                
                 input_word = word_to_one_hot_tensor(next_word)
                 output, hidden_state = self(input_word, hidden_state)
 
@@ -141,10 +167,20 @@ class MyRNN(nn.Module):
                     print(next_word.upper())
                     print(self.tensor_guess_to_probabilities(output))
 
-                next_word = self.tensor_guess_to_word(output)
-                out_string += " "+next_word
+
+                if input_type == "word":
+                    next_word = self.tensor_guess_to_word(output)
+                    out_string += " "+next_word
+
+                elif input_type == "sentence":
+                    curr_index += 1
+                    next_word = input_sentence[curr_index]
+                
+
+
                 
             print(out_string)
+            print(hidden_state)
                 
 
 model = MyRNN(len(vocabulary), hidden_size, len(vocabulary))
@@ -181,7 +217,9 @@ for epoch in range(num_epochs):
         print("Epoch "+ str(epoch) + " loss: "+str(loss.item()))
 
 
-model.predict_rest_of_sentence("carmen", show_probabilities = True)
+model.predict_rest_of_sentence("i studied abroad in italy", show_probabilities = False)
+model.predict_rest_of_sentence("i studied abroad in france", show_probabilities = False)
+model.predict_rest_of_sentence("i studied abroad in spain", show_probabilities = False)
 
 
 
