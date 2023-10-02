@@ -1,0 +1,57 @@
+{
+
+  "childrens_book": [
+    "Alice saw Bob.",
+    "Alice saw Carmen.",
+    "Bob saw Alice.",
+    "Bob saw Carmen.",
+    "Carmen saw Alice.",
+    "Carmen saw Bob."
+  ],
+
+
+  "simple_verb_tenses": [
+    "Yesterday Alice met Bob.",
+    "Yesterday Bob met Alice.",
+    "Today Alice meets Bob.",
+    "Today Bob meets Alice.",
+    "Tomorrow Alice will meet Bob.",
+    "Tomorrow Bob will meet Alice."
+  ],
+
+  "verb_tenses": [
+    "Yesterday Alice met Bob.",
+    "Yesterday Alice met Carmen.",
+    "Yesterday Bob met Alice.",
+    "Yesterday Bob met Carmen.",
+    "Yesterday Carmen met Alice.",
+    "Yesterday Carmen met Bob.",
+    "Today Alice meets Bob.",
+    "Today Alice meets Carmen.",
+    "Today Bob meets Alice.",
+    "Today Bob meets Carmen.",
+    "Today Carmen meets Alice.",
+    "Today Carmen meets Bob.",
+    "Tomorrow Alice will meet Bob.",
+    "Tomorrow Alice will meet Carmen.",
+    "Tomorrow Bob will meet Alice.",
+    "Tomorrow Bob will meet Carmen.",
+    "Tomorrow Carmen will meet Alice.",
+    "Tomorrow Carmen will meet Bob."
+  ],
+
+
+
+  "countries_and_languages_easy": [
+    "I studied abroad in France and when I was there I learned a new language called French.",
+    "I studied abroad in Spain and when I was there I learned a new language called Spanish.",
+    "I studied abroad in Italy and when I was there I learned a new language called Italian."
+  ],
+
+  "countries_and_languages_medium": [
+    "I studied abroad in France, which is a country I really adore and whose culture and customs I came to know well, but anyway, when I was there I learned a new language called French.",
+    "I studied abroad in Spain, which is a country I really adore and whose culture and customs I came to know well, but anyway, when I was there I learned a new language called Spanish.",
+    "I studied abroad in Italy, which is a country I really adore and whose culture and customs I came to know well, but anyway, when I was there I learned a new language called Italian."
+  ]
+
+}
